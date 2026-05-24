@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — AI Job Market Predictions</title>
+    <meta name="description" content="Visual overview of the AI job market predictions archive." />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <header class="hero hero-compact">
+      <div class="container">
+        <nav class="breadcrumb" style="margin-bottom:16px;">
+          <a href="index.html">← Archive</a>
+        </nav>
+        <p class="eyebrow">Visual overview</p>
+        <h1>Dashboard</h1>
+        <p class="lede">What the data says — at a glance.</p>
+      </div>
+    </header>
+
+    <main class="container" style="padding: 32px 0 64px;">
+      <!-- Top stat pills -->
+      <div class="stats" id="topStats" style="margin-bottom: 32px;"></div>
+
+      <!-- Charts row -->
+      <div class="dashboard-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:28px;">
+        <div class="card" style="padding:24px;">
+          <h2 style="margin:0 0 16px; font-size:1.1rem;">Topic Distribution</h2>
+          <canvas id="tagChart" height="260"></canvas>
+        </div>
+        <div class="card" style="padding:24px;">
+          <h2 style="margin:0 0 16px; font-size:1.1rem;">Speaker Types</h2>
+          <canvas id="speakerChart" height="260"></canvas>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px; margin-bottom:28px;">
+        <h2 style="margin:0 0 16px; font-size:1.1rem;">Predictions Over Time</h2>
+        <canvas id="timelineChart" height="160"></canvas>
+      </div>
+
+      <!-- Speaker cards -->
+      <h2 style="margin:0 0 20px; font-size:1.3rem;">Speakers</h2>
+      <div id="speakerCards" class="card-grid" style="grid-template-columns:repeat(auto-fill, minmax(240px,1fr));"></div>
+    </main>
+
+    <script src="predictions.json" defer></script>
+    <script defer>
+    (async function() {
+      const res = await fetch('predictions.json');
+      const predictions = await res.json();
+
+      // ── Aggregate data ───────────────────────────────────────────────
+      const tagCount = {};
+      const typeCount = {};
+      const dateMap = {}; // year -> count
+      const speakers = {}; // key -> { name, org, type, dates }
+
+      predictions.forEach(p => {
+        // Tags
+        (p.topic_tags || []).forEach(t => { tagCount[t] = (tagCount[t] || 0) + 1; });
+
+        // Speaker types
+        const st = p.speaker_type || 'unknown';
+        typeCount[st] = (typeCount[st] || 0) + 1;
+
+        // Timeline
+        const year = (p.date_made || '????').slice(0, 4);
+        if (year !== '????') dateMap[year] = (dateMap[year] || 0) + 1;
+
+        // Speakers
+        const key = (p.speaker_name || '').toLowerCase().replace(/\s+/g, '-');
+        if (!speakers[key]) {
+          speakers[key] = {
+            name: p.speaker_name,
+            org: p.organization || '',
+            type: st,
+            earliest: p.date_made,
+          };
+        }
+      });
+
+      const topTags = Object.entries(tagCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const total = predictions.length;
+
+      // ── Stat pills ────────────────────────────────────────────────────
+      document.getElementById('topStats').innerHTML = `
+        <span class="badge" style="background:var(--accent-soft);color:var(--accent);">
+          📋 ${total} predictions
+        </span>
+        <span class="badge" style="background:#e8f8f0;color:#1a7a4a;">
+          👤 ${Object.keys(speakers).length} speakers
+        </span>
+        <span class="badge" style="background:#fef3e8;color:#b25a00;">
+          🏷️ ${Object.keys(tagCount).length} topics
+        </span>
+        <span class="badge" style="background:#f5eaff;color:#6a00c8;">
+          📅 ${Object.keys(dateMap).length} years
+        </span>
+      `;
+
+      // ── Tag bar chart ─────────────────────────────────────────────────
+      new Chart(document.getElementById('tagChart'), {
+        type: 'bar',
+        data: {
+          labels: topTags.map(([t]) => t),
+          datasets: [{
+            label: 'Predictions',
+            data: topTags.map(([, c]) => c),
+            backgroundColor: 'rgba(33,81,255,0.18)',
+            borderColor: 'rgba(33,81,255,0.85)',
+            borderWidth: 1.5,
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: '#eee' }, ticks: { stepSize: 1 } },
+            y: { grid: { display: false } }
+          }
+        }
+      });
+
+      // ── Speaker type doughnut ─────────────────────────────────────────
+      const palette = ['#2151ff','#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#c77dff','#ff9f43','#48dbfb'];
+      new Chart(document.getElementById('speakerChart'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(typeCount).sort((a, b) => typeCount[b] - typeCount[a]),
+          datasets: [{
+            data: Object.keys(typeCount).sort((a, b) => typeCount[b] - typeCount[a]).map(k => typeCount[k]),
+            backgroundColor: palette.slice(0, Object.keys(typeCount).length),
+            borderWidth: 0,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { padding: 16, boxWidth: 14 } }
+          }
+        }
+      });
+
+      // ── Timeline bar chart ─────────────────────────────────────────────
+      const years = Object.keys(dateMap).sort();
+      new Chart(document.getElementById('timelineChart'), {
+        type: 'bar',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'Predictions',
+            data: years.map(y => dateMap[y]),
+            backgroundColor: 'rgba(33,81,255,0.45)',
+            borderColor: 'rgba(33,81,255,0.85)',
+            borderWidth: 1.5,
+            borderRadius: 6,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { grid: { color: '#eee' }, ticks: { stepSize: 1 } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      // ── Speaker cards with avatars ─────────────────────────────────────
+      const speakerList = Object.values(speakers);
+      const container = document.getElementById('speakerCards');
+
+      speakerList.forEach(s => {
+        // Avatar: Clearbit Logo API (shows org logo), fallback to UI Avatars
+        const encodedName = encodeURIComponent(s.name);
+        const avatarUrl = s.org
+          ? `https://img.clearbit.com/${s.org.replace(/^https?:\/\//, '').split('/')[0]}?size=80&fallback=sets`
+          : null;
+        const fallbackUrl = `https://ui-avatars.com/api/?name=${encodedName}&background=2151ff&color=fff&size=80`;
+
+        const typeLabel = { ceo:'CEO', institution:'Institution', economist:'Economist', politician:'Politician', researcher:'Researcher', 'institution-leader':'Institution Leader', technologist:'Technologist' }[s.type] || s.type;
+        const year = s.earliest ? s.earliest.slice(0, 4) : '';
+
+        container.innerHTML += `
+          <div class="card" style="padding:20px; display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <img id="avatar-${encodedName}" src="${avatarUrl || fallbackUrl}"
+                style="width:56px;height:56px;border-radius:50%;object-fit:cover;background:#eef3ff;"
+                onerror="this.src='${fallbackUrl}'">
+              <div>
+                <div style="font-weight:700;font-size:0.95rem;line-height:1.3;">${s.name}</div>
+                <div style="color:var(--muted);font-size:0.85rem;">${s.org || '—'}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;">
+              <span class="badge badge-speaker" style="font-size:0.8rem;">${typeLabel}</span>
+              ${year ? `<span class="badge" style="background:#fef3e8;color:#b25a00;font-size:0.8rem;">${year}</span>` : ''}
+            </div>
+          </div>
+        `;
+      });
+    })();
+    </script>
+  </body>
+</html>
