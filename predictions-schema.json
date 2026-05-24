@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Job Market Prediction",
+  "type": "object",
+  "required": [
+    "id",
+    "speaker_name",
+    "speaker_type",
+    "date_made",
+    "prediction_text",
+    "source_title",
+    "source_url",
+    "topic_tags"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "speaker_name": { "type": "string" },
+    "speaker_type": {
+      "type": "string",
+      "enum": ["ceo", "politician", "economist", "researcher", "investor", "journalist", "institution", "other"]
+    },
+    "organization": { "type": "string" },
+    "country": { "type": "string" },
+    "date_made": { "type": "string", "description": "ISO date when prediction was made" },
+    "prediction_text": { "type": "string" },
+    "prediction_type": {
+      "type": "string",
+      "enum": ["quantitative", "qualitative", "scenario", "time-bound", "directional"]
+    },
+    "topic_tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "affected_group": { "type": "string" },
+    "geography_scope": { "type": "string" },
+    "time_horizon_text": { "type": "string" },
+    "target_year": { "type": ["integer", "null"] },
+    "metric_hint": { "type": "string", "description": "Potential real-world metric later used for comparison" },
+    "source_title": { "type": "string" },
+    "source_url": { "type": "string" },
+    "source_type": {
+      "type": "string",
+      "enum": ["interview", "podcast", "tweet", "article", "paper", "speech", "hearing", "blog", "report", "other"]
+    },
+    "source_quote": { "type": "string" },
+    "retrieved_at": { "type": "string" },
+    "notes": { "type": "string", "description": "Internal note only; not for public display if you want a strict neutral front-end" }
+  }
+}

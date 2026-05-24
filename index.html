@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Job Market Predictions</title>
+    <meta
+      name="description"
+      content="A neutral archive of public predictions about how AI may affect jobs, wages, productivity, occupations, and labor markets."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">Public archive</p>
+        <h1>AI Job Market Predictions</h1>
+        <p class="lede">
+          This archive collects public predictions about how AI may affect jobs,
+          wages, productivity, occupations, and labor markets. Entries are
+          presented neutrally and linked to their sources.
+        </p>
+        <div class="stats" id="stats"></div>
+      </div>
+    </header>
+
+    <main class="container main-layout">
+      <aside class="filters-panel">
+        <div class="filters-header">
+          <h2>Filters</h2>
+          <button id="resetFilters" class="button button-secondary" type="button">Reset</button>
+        </div>
+
+        <label class="field">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Search speakers, quotes, tags..." />
+        </label>
+
+        <label class="field">
+          <span>Speaker type</span>
+          <select id="speakerTypeFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Topic</span>
+          <select id="topicFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Geography</span>
+          <select id="geographyFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Prediction type</span>
+          <select id="predictionTypeFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Year made</span>
+          <select id="yearFilter">
+            <option value="">All</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Sort</span>
+          <select id="sortFilter">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="speaker">Speaker name</option>
+          </select>
+        </label>
+      </aside>
+
+      <section class="content-panel">
+        <div class="results-header">
+          <div>
+            <h2>Predictions</h2>
+            <p id="resultsCount" class="results-copy">Loading predictions…</p>
+          </div>
+        </div>
+
+        <div id="activeFilters" class="active-filters"></div>
+        <div id="predictionsList" class="card-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <template id="predictionCardTemplate">
+      <article class="prediction-card">
+        <div class="card-topline">
+          <span class="badge badge-type"></span>
+          <span class="badge badge-speaker"></span>
+        </div>
+        <h3 class="prediction-text"></h3>
+        <p class="meta speaker-line"></p>
+        <p class="meta date-line"></p>
+        <div class="tag-list"></div>
+        <div class="card-actions">
+          <a class="detail-link" target="_self">View detail</a>
+        </div>
+        <details>
+          <summary>Source details</summary>
+          <div class="details-content">
+            <p class="source-quote"></p>
+            <p class="meta source-title"></p>
+            <a class="source-link" target="_blank" rel="noopener noreferrer">Open source</a>
+          </div>
+        </details>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
