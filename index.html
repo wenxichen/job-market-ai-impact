@@ -29,10 +29,14 @@
     </header>
 
     <main class="container main-layout">
-      <aside class="filters-panel">
+      <aside class="filters-panel" id="filtersPanel">
         <div class="filters-header">
           <h2>Filters</h2>
           <button id="resetFilters" class="button button-secondary" type="button">Reset</button>
+        </div>
+
+        <div class="filter-actions">
+          <button id="applyFilters" class="button" type="button" style="background: var(--accent); color: #fff; border: none;">Apply</button>
         </div>
 
         <label class="field">
@@ -84,6 +88,8 @@
           </select>
         </label>
       </aside>
+
+      <button id="filtersToggle" class="filters-toggle" type="button">Filters</button>
 
       <section class="content-panel">
         <div class="results-header">

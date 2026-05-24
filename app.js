@@ -25,6 +25,9 @@ const elements = {
   yearFilter: document.getElementById("yearFilter"),
   sortFilter: document.getElementById("sortFilter"),
   resetFilters: document.getElementById("resetFilters"),
+  filtersToggle: document.getElementById("filtersToggle"),
+  filtersPanel: document.getElementById("filtersPanel"),
+  applyFilters: document.getElementById("applyFilters"),
 };
 
 init();
@@ -68,6 +71,7 @@ function bindEvents() {
       sort: "newest",
     };
 
+
     elements.searchInput.value = "";
     elements.speakerTypeFilter.value = "";
     elements.topicFilter.value = "";
@@ -77,6 +81,17 @@ function bindEvents() {
     elements.sortFilter.value = "newest";
     render();
   });
+
+  if (elements.filtersToggle && elements.filtersPanel) {
+    elements.filtersToggle.addEventListener("click", () => {
+      const isOpen = elements.filtersPanel.classList.toggle("open");
+      elements.filtersToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    elements.applyFilters && elements.applyFilters.addEventListener("click", () => {
+      elements.filtersPanel.classList.remove("open");
+    });
+  }
 }
 
 function populateFilterOptions() {

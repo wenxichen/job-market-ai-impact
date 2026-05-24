@@ -266,11 +266,113 @@ summary {
 }
 
 @media (max-width: 860px) {
+  .hero {
+    padding: 36px 0 24px;
+  }
+
+  .lede {
+    font-size: 0.95rem;
+  }
+
+  .stats {
+    margin-top: 16px;
+  }
+
+  .stat-pill {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
   .main-layout {
     grid-template-columns: 1fr;
+    padding: 16px 0 40px;
   }
+
 
   .filters-panel {
     position: static;
+    display: none;
+    padding: 16px;
+  }
+
+
+  .filters-panel.open {
+    display: block;
+  }
+
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .filters-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--panel);
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filters-toggle::after {
+    content: "▼";
+    font-size: 0.6rem;
+    color: var(--muted);
+  }
+
+  .filters-panel.open .filters-toggle::after {
+    content: "▲";
+  }
+
+  .filters-panel {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+
+
+  .prediction-card {
+    padding: 16px;
+  }
+
+
+  .prediction-text {
+    font-size: 1rem;
+  }
+
+  .card-topline {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .badge,
+  .filter-pill {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+
+  details {
+    font-size: 0.9rem;
   }
 }
