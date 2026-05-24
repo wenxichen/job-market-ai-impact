@@ -165,11 +165,31 @@ select,
   padding: 20px;
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.speaker-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--accent-soft);
+  border: 2px solid var(--border);
+}
+
+.card-header-text {
+  min-width: 0;
+}
+
 .card-topline {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 14px;
 }
 
 .badge-speaker {
@@ -349,6 +369,16 @@ summary {
 
   .prediction-card {
     padding: 16px;
+  }
+
+  .speaker-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .card-header {
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
 

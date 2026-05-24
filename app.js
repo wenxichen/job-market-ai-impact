@@ -1,3 +1,26 @@
+const SPEAKER_AVATARS = {
+  "Kristalina Georgieva": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Kristalina_Georgieva_Headshot.jpg",
+  "Gita Gopinath": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Gita_Gopinath_2025_%28cropped%29.jpg",
+  "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+  "Arvind Krishna": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
+  "Bill Gates": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg",
+  "Dario Amodei": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
+  "Elon Musk": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg",
+  "Saadia Zahidi": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Saadia_Zahidi_cropped.jpg",
+  "Sam Altman": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Sam_Altman_TechCrunch_SF_2019_Day_2_Oct_3_%28cropped_3%29.jpg",
+  "Satya Nadella": "https://upload.wikimedia.org/wikipedia/commons/4/4f/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
+  "Ursula von der Leyen": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Ursula_von_der_Leyen_2024.jpg",
+  "Anthropic research team": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+  "Anthropic": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+  "Hadi Partovi": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/C_icon.svg/240px-C_icon.svg.png",
+  "Jensen Huang": "",
+  "Gilbert Fossoun Houngbo": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+  "Tyna Eloundou, Sam Manning, Pamela Mishkin, and Daniel Rock": "",
+  "Joseph Briggs and Devesh Kodnani": "",
+  "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
+  "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+};
+
 const state = {
   predictions: [],
   filters: {
@@ -174,6 +197,18 @@ function renderResults(items) {
   items.forEach((item) => {
     const fragment = elements.template.content.cloneNode(true);
 
+    const avatarEl = fragment.querySelector(".speaker-avatar");
+    const avatarUrl = SPEAKER_AVATARS[item.speaker_name];
+    if (avatarUrl) {
+      avatarEl.src = avatarUrl;
+      avatarEl.alt = item.speaker_name;
+      avatarEl.onerror = function () {
+        this.style.display = "none";
+      };
+    } else {
+      avatarEl.style.display = "none";
+    }
+
     fragment.querySelector(".badge-type").textContent = humanize(item.prediction_type);
     fragment.querySelector(".badge-speaker").textContent = humanize(item.speaker_type);
     fragment.querySelector(".prediction-text").textContent = item.prediction_text;
@@ -195,6 +230,7 @@ function renderResults(items) {
       tagElement.textContent = humanize(tag);
       tagList.appendChild(tagElement);
     });
+
 
     elements.predictionsList.appendChild(fragment);
   });
