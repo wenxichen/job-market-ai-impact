@@ -206,7 +206,9 @@ function renderResults(items) {
         this.style.display = "none";
       };
     } else {
-      avatarEl.style.display = "none";
+      // Use the same default avatar for all speakers
+      avatarEl.src = "./default-avatar.jpg";
+      avatarEl.alt = item.speaker_name;
     }
 
     fragment.querySelector(".badge-type").textContent = humanize(item.prediction_type);
