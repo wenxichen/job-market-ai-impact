@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timeline — AI Job Market Predictions</title>
+    <meta
+      name="description"
+      content="A chronological timeline view of public predictions about how AI may affect jobs, wages, productivity, occupations, and labor markets."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero hero-compact">
+      <div class="container">
+        <nav class="breadcrumb" style="margin-bottom:16px;">
+          <a href="index.html">← Archive</a>
+          <span style="color:var(--border);margin:0 8px;">|</span>
+          <a href="dashboard.html">Dashboard</a>
+        </nav>
+        <p class="eyebrow">Chronological view</p>
+        <h1>Timeline</h1>
+        <p class="lede">Every prediction, in order.</p>
+      </div>
+    </header>
+
+    <main class="container" style="padding: 32px 0 64px;">
+      <div id="timeline" class="timeline"></div>
+    </main>
+
+    <template id="yearGroupTemplate">
+      <div class="year-group">
+        <div class="year-marker">
+          <span class="year-label"></span>
+        </div>
+        <div class="year-entries"></div>
+      </div>
+    </template>
+
+    <template id="entryTemplate">
+      <article class="timeline-entry">
+        <div class="entry-dot"></div>
+        <div class="entry-card card">
+          <div class="card-header">
+            <img class="speaker-avatar" src="" alt="" />
+            <div class="card-header-text">
+              <div class="card-topline">
+                <span class="badge badge-type"></span>
+                <span class="badge badge-speaker"></span>
+              </div>
+              <p class="meta speaker-line"></p>
+            </div>
+          </div>
+          <p class="prediction-text"></p>
+          <p class="meta date-line"></p>
+          <div class="tag-list"></div>
+          <div class="card-actions">
+            <a class="detail-link" target="_self">View detail</a>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+    <script defer>
+    (async function () {
+      const res = await fetch("predictions.json");
+      const predictions = await res.json();
+
+      const SPEAKER_AVATARS = {
+        "Kristalina Georgieva": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Kristalina_Georgieva_Headshot.jpg",
+        "Gita Gopinath": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Gita_Gopinath_2025_%28cropped%29.jpg",
+        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "Arvind Krishna": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
+        "Bill Gates": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg",
+        "Dario Amodei": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
+        "Elon Musk": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg",
+        "Saadia Zahidi": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Saadia_Zahidi_cropped.jpg",
+        "Sam Altman": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Sam_Altman_TechCrunch_SF_2019_Day_2_Oct_3_%28cropped_3%29.jpg",
+        "Satya Nadella": "https://upload.wikimedia.org/wikipedia/4/4f/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
+        "Ursula von der Leyen": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Ursula_von_der_Leyen_2024.jpg",
+        "Anthropic research team": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+        "Anthropic": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+        "Hadi Partovi": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/C_icon.svg/240px-C_icon.svg.png",
+        "Jensen Huang": "",
+        "Gilbert Fossoun Houngbo": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "Tyna Eloundou, Sam Manning, Pamela Mishkin, and Daniel Rock": "",
+        "Joseph Briggs and Devesh Kodnani": "",
+        "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
+        "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+      };
+
+      const yearTemplate = document.getElementById("yearGroupTemplate");
+      const entryTemplate = document.getElementById("entryTemplate");
+      const container = document.getElementById("timeline");
+
+      // Group predictions by year
+      const byYear = {};
+      predictions.forEach((p) => {
+        const year = (p.date_made || "????-??-??").slice(0, 4);
+        if (!byYear[year]) byYear[year] = [];
+        byYear[year].push(p);
+      });
+
+      const years = Object.keys(byYear).sort();
+
+      years.forEach((year) => {
+        const yearFragment = yearTemplate.content.cloneNode(true);
+        const yearGroup = yearFragment.querySelector(".year-group");
+        yearGroup.querySelector(".year-label").textContent = year;
+
+        const entriesContainer = yearFragment.querySelector(".year-entries");
+
+        byYear[year]
+          .sort((a, b) => String(a.date_made).localeCompare(String(b.date_made)))
+          .forEach((item) => {
+            const entryFragment = entryTemplate.content.cloneNode(true);
+
+            const avatarEl = entryFragment.querySelector(".speaker-avatar");
+            const avatarUrl = SPEAKER_AVATARS[item.speaker_name];
+            if (avatarUrl) {
+              avatarEl.src = avatarUrl;
+              avatarEl.alt = item.speaker_name;
+              avatarEl.onerror = function () {
+                this.style.display = "none";
+              };
+            } else {
+              avatarEl.src = "./default-avatar.jpg";
+              avatarEl.alt = item.speaker_name;
+            }
+
+            entryFragment.querySelector(".badge-type").textContent = humanize(item.prediction_type);
+            entryFragment.querySelector(".badge-speaker").textContent = humanize(item.speaker_type);
+            entryFragment.querySelector(".prediction-text").textContent = item.prediction_text;
+            entryFragment.querySelector(".speaker-line").textContent = `${item.speaker_name}${item.organization ? ` — ${item.organization}` : ""}`;
+            entryFragment.querySelector(".date-line").textContent = `${formatDate(item.date_made)}${item.geography_scope ? ` • ${humanize(item.geography_scope)}` : ""}${item.time_horizon_text ? ` • ${item.time_horizon_text}` : ""}`;
+
+            const tagList = entryFragment.querySelector(".tag-list");
+            (item.topic_tags || []).forEach((tag) => {
+              const tagEl = document.createElement("span");
+              tagEl.className = "tag";
+              tagEl.textContent = humanize(tag);
+              tagList.appendChild(tagEl);
+            });
+
+            const detailLink = entryFragment.querySelector(".detail-link");
+            detailLink.href = `./prediction.html?id=${encodeURIComponent(item.id)}`;
+
+            entriesContainer.appendChild(entryFragment);
+          });
+
+        container.appendChild(yearFragment);
+      });
+    })();
+    </script>
+  </body>
+</html>
