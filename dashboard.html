@@ -255,22 +255,18 @@
         const avatarUrl = SPEAKER_AVATARS[name];
         if (!avatarUrl) return createInitialsAvatar(name);
 
-        const frame = document.createElement("div");
-        frame.className = "speaker-avatar-frame";
-        frame.appendChild(createInitialsAvatar(name));
-
-        const image = document.createElement("img");
+        const avatar = createInitialsAvatar(name);
+        const image = new Image(56, 56);
         image.className = "speaker-photo";
-        image.src = avatarUrl;
         image.alt = name || "Speaker";
         image.onload = () => {
-          frame.classList.add("loaded");
+          avatar.replaceWith(image);
         };
         image.onerror = () => {
           image.remove();
         };
-        frame.appendChild(image);
-        return frame;
+        image.src = avatarUrl;
+        return avatar;
       }
 
       function createInitialsAvatar(name) {
