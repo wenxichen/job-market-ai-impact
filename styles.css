@@ -487,23 +487,81 @@ summary {
   border-radius: var(--radius);
 }
 
+/* ── Navigation (shared across all pages) ─────────────── */
+.nav-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.nav-row a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-row a.active,
+.nav-row a:hover {
+  color: var(--accent);
+}
+
 @media (max-width: 640px) {
   .year-label {
-    width: 44px;
-    height: 44px;
-    font-size: 0.9rem;
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+    box-shadow: 0 0 0 4px var(--accent-soft);
   }
 
   .year-entries {
-    padding-left: 28px;
+    padding-left: 24px;
     margin-left: 20px;
+    gap: 12px;
   }
 
   .entry-dot {
     left: -33px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+  }
+
+  .year-marker {
+    margin-bottom: 14px;
+  }
+
+  .year-marker::before {
+    left: 9px;
+    top: 100%;
+    bottom: -20px;
   }
 
   .timeline-entry .card {
-    padding: 16px;
+    padding: 14px;
+  }
+
+  .timeline-entry .card-header {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .timeline-entry .speaker-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .timeline-entry .prediction-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .timeline-entry .tag-list {
+    margin: 10px 0;
+  }
+
+  .timeline-entry details {
+    font-size: 0.85rem;
   }
 }
