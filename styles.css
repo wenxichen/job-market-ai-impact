@@ -468,6 +468,13 @@ summary {
   position: relative;
   display: grid;
   grid-template-columns: 0 1fr;
+  width: 100%;
+  min-width: 0;
+}
+
+.timeline-entry .entry-card {
+  width: 100%;
+  min-width: 0;
 }
 
 .entry-dot {
