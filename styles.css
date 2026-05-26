@@ -300,14 +300,43 @@ select,
   min-width: 0;
 }
 
+.speaker-avatar-frame {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+
+.speaker-photo,
 .speaker-initials {
   width: 56px;
   height: 56px;
   border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.speaker-photo {
+  display: block;
+  object-fit: cover;
+  background: var(--accent-soft);
+  border: 2px solid var(--border);
+}
+
+.speaker-avatar-frame .speaker-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.speaker-avatar-frame.loaded .speaker-photo {
+  opacity: 1;
+}
+
+.speaker-initials {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 800;

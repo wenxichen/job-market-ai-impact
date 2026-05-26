@@ -50,6 +50,25 @@
 
     <script defer>
     (async function () {
+      const SPEAKER_AVATARS = {
+        "Kristalina Georgieva": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Kristalina_Georgieva_Headshot.jpg",
+        "Gita Gopinath": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Gita_Gopinath_2025_%28cropped%29.jpg",
+        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "Arvind Krishna": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
+        "Bill Gates": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg",
+        "Dario Amodei": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
+        "Elon Musk": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg",
+        "Saadia Zahidi": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Saadia_Zahidi_cropped.jpg",
+        "Sam Altman": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Sam_Altman_TechCrunch_SF_2019_Day_2_Oct_3_%28cropped_3%29.jpg",
+        "Satya Nadella": "https://upload.wikimedia.org/wikipedia/commons/4/4f/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
+        "Ursula von der Leyen": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Ursula_von_der_Leyen_2024.jpg",
+        "Jensen Huang": "https://upload.wikimedia.org/wikipedia/commons/0/05/JensenHuangSC18.jpg",
+        "Anthropic research team": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+        "Anthropic": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
+        "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
+        "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+      };
+
       const res = await fetch("predictions.json");
       const predictions = await res.json();
 
@@ -198,10 +217,6 @@
             const header = document.createElement("div");
             header.className = "speaker-card-header";
 
-            const initials = document.createElement("div");
-            initials.className = "speaker-initials";
-            initials.textContent = getInitials(speaker.name);
-
             const copy = document.createElement("div");
             copy.className = "speaker-card-copy";
 
@@ -214,7 +229,7 @@
             org.textContent = speaker.org || "Not specified";
 
             copy.append(name, org);
-            header.append(initials, copy);
+            header.append(createSpeakerAvatar(speaker.name), copy);
 
             const pills = document.createElement("div");
             pills.className = "speaker-pills";
@@ -234,6 +249,35 @@
             card.append(header, pills);
             container.appendChild(card);
           });
+      }
+
+      function createSpeakerAvatar(name) {
+        const avatarUrl = SPEAKER_AVATARS[name];
+        if (!avatarUrl) return createInitialsAvatar(name);
+
+        const frame = document.createElement("div");
+        frame.className = "speaker-avatar-frame";
+        frame.appendChild(createInitialsAvatar(name));
+
+        const image = document.createElement("img");
+        image.className = "speaker-photo";
+        image.src = avatarUrl;
+        image.alt = name || "Speaker";
+        image.onload = () => {
+          frame.classList.add("loaded");
+        };
+        image.onerror = () => {
+          image.remove();
+        };
+        frame.appendChild(image);
+        return frame;
+      }
+
+      function createInitialsAvatar(name) {
+        const initials = document.createElement("div");
+        initials.className = "speaker-initials";
+        initials.textContent = getInitials(name);
+        return initials;
       }
 
       function getInitials(name) {

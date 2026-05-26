@@ -101,7 +101,7 @@
         byYear[year].push(p);
       });
 
-      const years = Object.keys(byYear).sort();
+      const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a));
 
       years.forEach((year) => {
         const yearFragment = yearTemplate.content.cloneNode(true);
@@ -111,7 +111,7 @@
         const entriesContainer = yearFragment.querySelector(".year-entries");
 
         byYear[year]
-          .sort((a, b) => String(a.date_made).localeCompare(String(b.date_made)))
+          .sort((a, b) => String(b.date_made).localeCompare(String(a.date_made)))
           .forEach((item) => {
             const entryFragment = entryTemplate.content.cloneNode(true);
 
