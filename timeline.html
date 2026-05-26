@@ -61,7 +61,6 @@
       </article>
     </template>
 
-    <script src="app.js" defer></script>
     <script defer>
     (async function () {
       const res = await fetch("predictions.json");
@@ -151,6 +150,23 @@
 
         container.appendChild(yearFragment);
       });
+
+      function humanize(value) {
+        return String(value)
+          .replace(/[-_]/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
+      }
+
+      function formatDate(value) {
+        if (!value) return "Date not specified";
+        const date = new Date(`${value}T00:00:00`);
+        if (Number.isNaN(date.getTime())) return value;
+        return new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        }).format(date);
+      }
     })();
     </script>
   </body>

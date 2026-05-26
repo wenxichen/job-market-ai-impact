@@ -30,6 +30,16 @@
     </header>
 
     <main class="container main-layout">
+      <button
+        id="filtersToggle"
+        class="filters-toggle"
+        type="button"
+        aria-controls="filtersPanel"
+        aria-expanded="false"
+      >
+        Filters
+      </button>
+
       <aside class="filters-panel" id="filtersPanel">
         <div class="filters-header">
           <h2>Filters</h2>
@@ -89,8 +99,6 @@
           </select>
         </label>
       </aside>
-
-      <button id="filtersToggle" class="filters-toggle" type="button">Filters</button>
 
       <section class="content-panel">
         <div class="results-header">

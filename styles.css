@@ -7,7 +7,7 @@
   --accent: #2151ff;
   --accent-soft: #e8eeff;
   --shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
-  --radius: 18px;
+  --radius: 8px;
 }
 
 * {
@@ -25,6 +25,7 @@ body {
 .container {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
+  min-width: 0;
 }
 
 .hero {
@@ -60,6 +61,7 @@ h1 {
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 24px;
+  min-width: 0;
 }
 
 .stat-pill,
@@ -68,12 +70,14 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  max-width: 100%;
   padding: 8px 12px;
   border-radius: 999px;
   background: var(--accent-soft);
   color: var(--accent);
   font-size: 0.92rem;
   font-weight: 600;
+  white-space: normal;
 }
 
 .main-layout {
@@ -84,11 +88,14 @@ h1 {
 }
 
 .filters-panel,
-.prediction-card {
+.prediction-card,
+.card {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .filters-panel {
@@ -96,6 +103,11 @@ h1 {
   align-self: start;
   position: sticky;
   top: 20px;
+}
+
+.filters-toggle,
+.filter-actions {
+  display: none;
 }
 
 .filters-header,
@@ -158,11 +170,194 @@ select,
 
 .card-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.bar-chart {
+  display: grid;
+  gap: 12px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.1fr) minmax(120px, 2fr) 32px;
+  gap: 12px;
+  align-items: center;
+}
+
+.bar-label,
+.bar-value,
+.timeline-bar-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.bar-track {
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf1f5;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2151ff, #087e8b);
+}
+
+.type-chart {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.donut-chart {
+  width: 180px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: relative;
+}
+
+.donut-chart::after {
+  content: "";
+  position: absolute;
+  inset: 42px;
+  border-radius: 50%;
+  background: var(--panel);
+}
+
+.type-list {
+  display: grid;
+  gap: 10px;
+}
+
+.type-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.type-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.timeline-bars {
+  min-height: 190px;
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  padding-top: 10px;
+  overflow-x: auto;
+}
+
+.timeline-bar-item {
+  min-width: 54px;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  align-items: end;
+}
+
+.timeline-bar {
+  width: 100%;
+  max-width: 44px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #2151ff, #087e8b);
+}
+
+.speaker-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.speaker-card {
+  min-height: 160px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.speaker-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.speaker-initials {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.speaker-card-copy {
+  min-width: 0;
+}
+
+.speaker-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.speaker-org {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.speaker-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.stat-blue {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.stat-green {
+  background: #e8f8f0;
+  color: #1a7a4a;
+}
+
+.stat-gold {
+  background: #fef3e8;
+  color: #b25a00;
+}
+
+.stat-violet {
+  background: #f1edff;
+  color: #5a43b5;
 }
 
 .prediction-card {
   padding: 20px;
+  overflow: hidden;
 }
 
 .card-header {
@@ -170,6 +365,7 @@ select,
   align-items: center;
   gap: 14px;
   margin-bottom: 14px;
+  min-width: 0;
 }
 
 .speaker-avatar {
@@ -201,11 +397,13 @@ select,
   margin: 0 0 14px;
   font-size: 1.2rem;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .meta {
   margin: 6px 0;
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
 }
 
 .tag-list {
@@ -213,6 +411,7 @@ select,
   flex-wrap: wrap;
   gap: 8px;
   margin: 16px 0;
+  min-width: 0;
 }
 
 .tag {
@@ -221,6 +420,8 @@ select,
   padding: 6px 10px;
   border-radius: 999px;
   font-size: 0.85rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 details {
@@ -290,8 +491,15 @@ summary {
     padding: 36px 0 24px;
   }
 
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
   .lede {
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
   }
 
   .stats {
@@ -349,7 +557,7 @@ summary {
     color: var(--muted);
   }
 
-  .filters-panel.open .filters-toggle::after {
+  .filters-toggle[aria-expanded="true"]::after {
     content: "▲";
   }
 
@@ -364,6 +572,40 @@ summary {
     display: flex;
     justify-content: flex-end;
     margin-top: 12px;
+  }
+
+  .dashboard-grid,
+  .type-chart {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid .card,
+  .bar-row,
+  .bar-track {
+    min-width: 0;
+  }
+
+  .dashboard-grid .card {
+    overflow: hidden;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .bar-label {
+    overflow-wrap: anywhere;
+  }
+
+  .bar-value {
+    justify-self: end;
+    margin-top: -26px;
+  }
+
+  .donut-chart {
+    width: min(180px, 70vw);
+    justify-self: center;
   }
 
 
@@ -395,6 +637,8 @@ summary {
   .filter-pill {
     font-size: 0.8rem;
     padding: 5px 10px;
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .tag {
@@ -466,8 +710,7 @@ summary {
 
 .timeline-entry {
   position: relative;
-  display: grid;
-  grid-template-columns: 0 1fr;
+  display: block;
   width: 100%;
   min-width: 0;
 }

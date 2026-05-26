@@ -59,7 +59,7 @@ function renderDetail(item) {
 
   const avatarUrl = SPEAKER_AVATARS[item.speaker_name];
   const avatarHtml = avatarUrl
-    ? `<img class="speaker-avatar" src="${escapeAttribute(avatarUrl)}" alt="${escapeAttribute(item.speaker_name)}" style="width:72px;height:72px;" />`
+    ? `<img class="speaker-avatar" src="${escapeAttribute(avatarUrl)}" alt="${escapeAttribute(item.speaker_name)}" style="width:72px;height:72px;" onerror="this.onerror=null;this.src='./default-avatar.jpg';" />`
     : `<div class="speaker-avatar" style="display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:var(--accent-soft);border:2px solid var(--border);font-size:1.4rem;font-weight:700;color:var(--accent);">${item.speaker_name.split(" ").map(w=>w[0]).join("").slice(0,2)}</div>`;
 
   detailCard.innerHTML = `

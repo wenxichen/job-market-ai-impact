@@ -113,6 +113,7 @@ function bindEvents() {
 
     elements.applyFilters && elements.applyFilters.addEventListener("click", () => {
       elements.filtersPanel.classList.remove("open");
+      elements.filtersToggle.setAttribute("aria-expanded", "false");
     });
   }
 }
