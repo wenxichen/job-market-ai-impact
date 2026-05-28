@@ -9,12 +9,9 @@
     "prediction_text": "AI specialist roles grew 176% in India and 151% in the UK. 39% of skills will become outdated by 2030. 77% of employers plan to upskill staff. 86% of businesses expect AI to transform operations by 2030. AI roles are growing 7x faster than any other category. AI-skilled workers command a 56% wage premium. 1 in 4 workers is exposed to generative AI. 72% of companies use AI in at least one function. 300 million jobs globally may be exposed to automation.",
     "prediction_type": "comprehensive labor market statistics",
     "topic_tags": [
-      "ai-jobs",
-      "skills",
-      "wages",
-      "automation",
-      "upskilling",
-      "global"
+      "skills-retraining",
+      "labor-market-shifts",
+      "automation-ai-exposure"
     ],
     "affected_group": "global workforce",
     "geography_scope": "global",
@@ -37,11 +34,9 @@
     "prediction_text": "AI is reshaping the 2026 job market: roles that are repetitive, rules-based, and digitally mediated face the highest disruption risk (customer service, office support, media). New roles are emerging in AI oversight, prompt engineering, and human-AI collaboration. Skills demands are shifting toward AI literacy and digital communication.",
     "prediction_type": "sectoral shift / job transformation",
     "topic_tags": [
-      "job-market",
-      "sectoral-shift",
-      "automation-risk",
-      "skills",
-      "2026"
+      "labor-market-shifts",
+      "automation-ai-exposure",
+      "skills-retraining"
     ],
     "affected_group": "US workforce",
     "geography_scope": "United States",
@@ -64,11 +59,10 @@
     "prediction_text": "AI job disruption in 2026 reflects rapid reallocation of tasks and skills rather than mass unemployment. Tech, financial services, and healthcare lead AI adoption. Customer service, office support, and media roles face the highest disruption risk. Labor demand is shifting toward AI-complementary skills.",
     "prediction_type": "sectoral reallocation / task shift",
     "topic_tags": [
-      "sectoral-shift",
-      "automation-risk",
-      "tech-adoption",
-      "skills-gap",
-      "2026"
+      "labor-market-shifts",
+      "automation-ai-exposure",
+      "ai-adoption",
+      "skills-retraining"
     ],
     "affected_group": "global workforce by sector",
     "geography_scope": "global",
@@ -91,10 +85,8 @@
     "prediction_text": "89% of senior HR leaders expect AI to impact jobs at their firms in the next 12 months (2026). 45% said AI will impact nearly half or more than half of all jobs. 67% said AI is already having an impact on jobs at their organizations.",
     "prediction_type": "employer expectation / workforce impact",
     "topic_tags": [
-      "employer-survey",
-      "hr-leaders",
       "ai-adoption",
-      "workforce-transformation"
+      "skills-retraining"
     ],
     "affected_group": "US workforce across surveyed companies",
     "geography_scope": "United States",
@@ -117,9 +109,8 @@
     "prediction_text": "AI could eliminate half of all entry-level white-collar jobs within one to five years and drive unemployment to 20%.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "job displacement",
-      "white-collar work",
-      "unemployment"
+      "job-displacement",
+      "job-transformation"
     ],
     "affected_group": "entry-level white-collar workers",
     "geography_scope": "US",
@@ -143,10 +134,10 @@
     "prediction_text": "Every job will be affected immediately by AI, but workers are more likely to lose jobs to people who use AI than to AI itself.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job transformation",
-      "job displacement",
-      "productivity",
-      "AI adoption"
+      "job-transformation",
+      "job-displacement",
+      "productivity-augmentation",
+      "ai-adoption"
     ],
     "affected_group": "general workforce",
     "geography_scope": "global",
@@ -170,11 +161,8 @@
     "prediction_text": "Over the 2023-33 period, AI is expected to primarily affect occupations whose core tasks can be most easily replicated by Generative AI. Software development jobs are projected to grow 17.9%, while paralegal jobs grow only 1.2%. Credit analysts are projected to decline 3.9% and claims adjusters to decline 4.4% — the occupations most exposed to AI replacement.",
     "prediction_type": "employment projection / occupational growth and decline",
     "topic_tags": [
-      "bls",
-      "employment-projections",
-      "occupational-analysis",
-      "automation-risk",
-      "2023-33"
+      "future-work-policy",
+      "automation-ai-exposure"
     ],
     "affected_group": "US labor market across occupations",
     "geography_scope": "United States",
@@ -197,10 +185,10 @@
     "prediction_text": "AI use currently leans more toward augmentation than automation, with 57% of observed usage categorized as augmentation versus 43% as automation.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "augmentation",
-      "automation",
-      "AI adoption",
-      "task transformation"
+      "productivity-augmentation",
+      "automation-ai-exposure",
+      "ai-adoption",
+      "job-transformation"
     ],
     "affected_group": "occupations represented in Claude usage data",
     "geography_scope": "primarily US-mapped occupations",
@@ -224,9 +212,9 @@
     "prediction_text": "AI systems will have a major impact on the ways people work in the coming years.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job transformation",
-      "future of work",
-      "AI adoption"
+      "job-transformation",
+      "future-work-policy",
+      "ai-adoption"
     ],
     "affected_group": "workers broadly",
     "geography_scope": "global",
@@ -251,9 +239,8 @@
     "prediction_type": "qualitative",
     "topic_tags": [
       "global labor market",
-      "job transformation",
-      "2030",
-      "skills"
+      "job-transformation",
+      "skills-retraining"
     ],
     "affected_group": "global workforce",
     "geography_scope": "global",
@@ -277,11 +264,9 @@
     "prediction_text": "92 million roles are projected to be displaced by 2030, while 170 million new roles emerge — a net gain of 78 million jobs globally — driven by AI, automation, and related technological change.",
     "prediction_type": "job displacement and creation",
     "topic_tags": [
-      "future-of-jobs",
-      "automation",
-      "job-creation",
-      "2030",
-      "wef"
+      "future-work-policy",
+      "automation-ai-exposure",
+      "job-creation"
     ],
     "affected_group": "global workforce across 55 economies",
     "geography_scope": "global",
@@ -304,11 +289,10 @@
     "prediction_text": "Generative AI could raise the level of labor productivity in the US and developed markets by around 15% when fully adopted. Baseline job displacement from AI is estimated at 6-7% of the workforce, with a possible range of 3-14% depending on adoption speed. Unemployment may rise 0.5 percentage points above trend during the AI transition period.",
     "prediction_type": "productivity and displacement",
     "topic_tags": [
-      "productivity",
-      "displacement",
-      "unemployment",
-      "labor-market",
-      "generative-ai"
+      "productivity-augmentation",
+      "job-displacement",
+      "labor-market-shifts",
+      "automation-ai-exposure"
     ],
     "affected_group": "US and developed-market workers",
     "geography_scope": "United States",
@@ -331,11 +315,9 @@
     "prediction_text": "The IMF's 2024 assessment found roughly 40% of jobs globally face meaningful exposure to AI, rising to ~60% in high-income, digitized economies. WEF Future of Jobs Report 2025 projects 92 million roles displaced by 2030 vs. 170 million new roles — a net 78 million job gain globally.",
     "prediction_type": "global job displacement and creation summary",
     "topic_tags": [
-      "displacement",
+      "job-displacement",
       "job-creation",
-      "imf",
-      "wef",
-      "global"
+      "labor-market-shifts"
     ],
     "affected_group": "global workforce",
     "geography_scope": "global",
@@ -358,10 +340,9 @@
     "prediction_text": "AI will probably eliminate the need for most human jobs, making work optional and shifting society toward universal high income.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job displacement",
-      "post-work",
-      "universal income",
-      "AGI / superintelligence implications"
+      "job-displacement",
+      "future-work-policy",
+      "agi-superintelligence"
     ],
     "affected_group": "all workers",
     "geography_scope": "global",
@@ -385,9 +366,9 @@
     "prediction_text": "40% of the global workforce is exposed to AI; about half of that exposed share may benefit through higher productivity, while the other half may face lower wages or displacement.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "job displacement",
-      "wages",
-      "productivity",
+      "job-displacement",
+      "labor-market-shifts",
+      "productivity-augmentation",
       "global labor market"
     ],
     "affected_group": "global workforce",
@@ -412,9 +393,8 @@
     "prediction_text": "AI can boost productivity at unprecedented speed and should enhance human capabilities in everyday business activity.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "productivity",
-      "human augmentation",
-      "business adoption"
+      "productivity-augmentation",
+      "ai-adoption"
     ],
     "affected_group": "businesses and workers using AI",
     "geography_scope": "EU",
@@ -438,8 +418,8 @@
     "prediction_text": "Without guardrails and broader access, AI could deepen global inequality even as it delivers major benefits.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "inequality",
-      "regulation / policy",
+      "labor-market-shifts",
+      "future-work-policy",
       "global labor market"
     ],
     "affected_group": "workers and developing economies",
@@ -464,10 +444,10 @@
     "prediction_text": "AI will transform work rather than cause an employment apocalypse, with millions of jobs lost and millions created.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job creation",
-      "job displacement",
-      "job transformation",
-      "education / retraining"
+      "job-creation",
+      "job-displacement",
+      "job-transformation",
+      "skills-retraining"
     ],
     "affected_group": "global workforce",
     "geography_scope": "global",
@@ -491,10 +471,10 @@
     "prediction_text": "For many desk jobs, the bigger risk is being displaced by another worker who knows how to use AI and can be two to three times as productive.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job displacement",
-      "white-collar work",
-      "education / retraining",
-      "productivity"
+      "job-displacement",
+      "job-transformation",
+      "skills-retraining",
+      "productivity-augmentation"
     ],
     "affected_group": "desk-job workers",
     "geography_scope": "global",
@@ -518,9 +498,8 @@
     "prediction_text": "People’s jobs will shift upward toward higher-level decision-making, abstraction, and curation.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job transformation",
-      "white-collar work",
-      "decision-making"
+      "job-transformation",
+      "future-work-policy"
     ],
     "affected_group": "general workforce",
     "geography_scope": "global",
@@ -544,10 +523,9 @@
     "prediction_text": "Even if human-level AI arrives reasonably soon, it may change jobs much less dramatically than many people expect and function more as a productivity tool than a large-scale job destroyer.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job transformation",
-      "productivity",
-      "AGI / superintelligence implications",
-      "white-collar work"
+      "job-transformation",
+      "productivity-augmentation",
+      "agi-superintelligence"
     ],
     "affected_group": "workers broadly",
     "geography_scope": "global",
@@ -571,8 +549,8 @@
     "prediction_text": "AI will affect almost 40 percent of jobs around the world, replacing some and complementing others.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "job displacement",
-      "productivity",
+      "job-displacement",
+      "productivity-augmentation",
       "global labor market"
     ],
     "affected_group": "global workforce",
@@ -597,9 +575,8 @@
     "prediction_text": "AI will eventually create a situation where no job is needed because AI will be able to do everything, leaving work optional and mainly for personal satisfaction.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job displacement",
-      "post-work",
-      "AGI / superintelligence implications"
+      "job-displacement",
+      "agi-superintelligence"
     ],
     "affected_group": "all workers",
     "geography_scope": "global",
@@ -623,9 +600,9 @@
     "prediction_text": "Generative AI is more likely to complement jobs than destroy them by automating some tasks rather than fully automating occupations.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job complementarity",
-      "automation exposure",
-      "job quality"
+      "job-transformation",
+      "automation-ai-exposure",
+      "future-work-policy"
     ],
     "affected_group": "global workforce",
     "geography_scope": "global",
@@ -649,8 +626,8 @@
     "prediction_text": "The automating effects of generative AI may expose 5.5% of total employment in richer countries versus around 0.4% in low-income countries.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "automation exposure",
-      "inequality",
+      "automation-ai-exposure",
+      "labor-market-shifts",
       "global labor market"
     ],
     "affected_group": "workers in richer and low-income countries",
@@ -675,10 +652,10 @@
     "prediction_text": "AI will have a big impact on work and education, but society can adapt to those changes much as it adapted to earlier general-purpose technologies.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job transformation",
-      "education / retraining",
-      "productivity",
-      "historical comparison"
+      "job-transformation",
+      "skills-retraining",
+      "productivity-augmentation",
+      "future-work-policy"
     ],
     "affected_group": "workers and students broadly",
     "geography_scope": "global",
@@ -702,10 +679,10 @@
     "prediction_text": "AI will create real job-market displacement, but it can also create many new jobs and democratize access to knowledge and software development.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job displacement",
-      "job creation",
-      "education / retraining",
-      "productivity"
+      "job-displacement",
+      "job-creation",
+      "skills-retraining",
+      "productivity-augmentation"
     ],
     "affected_group": "workers and learners broadly",
     "geography_scope": "global",
@@ -729,9 +706,9 @@
     "prediction_text": "Generative AI is expected to be adopted by nearly 75% of surveyed companies and is among the technologies most associated with expected job losses, especially for clerical and administrative roles.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "AI adoption",
-      "job displacement",
-      "white-collar work"
+      "ai-adoption",
+      "job-displacement",
+      "job-transformation"
     ],
     "affected_group": "clerical, cashier, secretary, and accounting roles",
     "geography_scope": "global",
@@ -755,9 +732,9 @@
     "prediction_text": "Roughly 7,800 IBM jobs could be replaced by AI in the coming years, with about 30% of non-customer-facing roles potentially replaced by AI and automation within five years.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "job displacement",
-      "automation exposure",
-      "back-office work"
+      "job-displacement",
+      "automation-ai-exposure",
+      "job-transformation"
     ],
     "affected_group": "non-customer-facing back-office roles",
     "geography_scope": "company-specific",
@@ -781,8 +758,8 @@
     "prediction_text": "Nearly a quarter of jobs globally will change by 2027, with 69 million new jobs created and 83 million eliminated.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "job creation",
-      "job displacement",
+      "job-creation",
+      "job-displacement",
       "global labor market"
     ],
     "affected_group": "global workforce",
@@ -807,9 +784,9 @@
     "prediction_text": "Rapid AI advancement risks adding more uncertainty to livelihoods unless governments and businesses invest in education, reskilling, and social support for the jobs transition.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "education / retraining",
-      "job transformation",
-      "policy"
+      "skills-retraining",
+      "job-transformation",
+      "future-work-policy"
     ],
     "affected_group": "workers facing labor-market transition",
     "geography_scope": "global",
@@ -833,8 +810,8 @@
     "prediction_text": "Shifts in workflows triggered by generative AI could expose the equivalent of 300 million full-time jobs to automation.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "automation exposure",
-      "job displacement",
+      "automation-ai-exposure",
+      "job-displacement",
       "global labor market"
     ],
     "affected_group": "global workforce",
@@ -859,9 +836,9 @@
     "prediction_text": "Most jobs and industries are more likely to be complemented rather than substituted by AI, even if labor-market effects are significant.",
     "prediction_type": "qualitative",
     "topic_tags": [
-      "job complementarity",
-      "automation exposure",
-      "productivity"
+      "job-transformation",
+      "automation-ai-exposure",
+      "productivity-augmentation"
     ],
     "affected_group": "jobs and industries with partial AI exposure",
     "geography_scope": "global",
@@ -885,10 +862,8 @@
     "prediction_text": "Large language models could affect at least 10% of work tasks for about 80% of the U.S. workforce, and at least 50% of tasks for about 19% of workers.",
     "prediction_type": "quantitative",
     "topic_tags": [
-      "task exposure",
-      "white-collar work",
-      "automation exposure",
-      "us labor market"
+      "automation-ai-exposure",
+      "job-transformation"
     ],
     "affected_group": "U.S. workforce",
     "geography_scope": "US",

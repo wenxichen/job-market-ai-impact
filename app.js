@@ -279,10 +279,26 @@ function matchesSearch(item, query) {
   return haystack.includes(query);
 }
 
+const DISPLAY_NAME = {
+  "job-displacement":          "Job Displacement",
+  "job-transformation":        "Job Transformation",
+  "automation-ai-exposure":    "Automation & AI Exposure",
+  "productivity-augmentation": "Productivity & Augmentation",
+  "job-creation":             "Job Creation",
+  "labor-market-shifts":       "Labor Market Shifts",
+  "skills-retraining":         "Skills & Retraining",
+  "ai-adoption":               "AI Adoption",
+  "future-work-policy":        "Future of Work & Policy",
+  "global labor market":       "Global Labor Market",
+  "agi-superintelligence":      "AGI & Superintelligence",
+};
+
 function humanize(value) {
+  if (DISPLAY_NAME[value]) return DISPLAY_NAME[value];
   return String(value)
     .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+    .replace(/\bAI\b/g, "AI");
 }
 
 function formatDate(value) {
