@@ -158,12 +158,26 @@ function renderStats() {
   const speakers = new Set(state.predictions.map((item) => item.speaker_name)).size;
   const topics = new Set(state.predictions.flatMap((item) => item.topic_tags || [])).size;
 
+  // Find most recent retrieved_at date across all entries
+  const retrievedDates = state.predictions
+    .map((item) => item.retrieved_at)
+    .filter(Boolean)
+    .map((d) => new Date(d))
+    .filter((d) => !Number.isNaN(d.getTime()));
+  const mostRecent = retrievedDates.length
+    ? new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "numeric" }).format(
+        new Date(Math.max(...retrievedDates))
+      )
+    : null;
+
   elements.stats.innerHTML = "";
   [
     `${totalPredictions} predictions`,
     `${speakers} speakers`,
     `${topics} topics`,
+    mostRecent ? `Updated ${mostRecent}` : null,
   ].forEach((label) => {
+    if (!label) return;
     const pill = document.createElement("span");
     pill.className = "stat-pill";
     pill.textContent = label;
