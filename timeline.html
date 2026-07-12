@@ -9,6 +9,156 @@
       content="A chronological timeline view of public predictions about how AI may affect jobs, wages, productivity, occupations, and labor markets."
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .timeline-split {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .timeline-header-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .timeline-legend {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+      }
+      .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .legend-dot.predictions { background: var(--accent); }
+      .legend-dot.events { background: #e67e22; }
+
+      .year-group {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0 24px;
+        margin-bottom: 40px;
+        position: relative;
+      }
+      .year-marker {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .year-marker::before,
+      .year-marker::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .year-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      /* Predictions column — left */
+      .year-predictions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-end;
+      }
+      /* Events column — right */
+      .year-events {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      /* Center column — the spine */
+      .year-spine {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        position: relative;
+        z-index: 1;
+      }
+      .spine-line {
+        width: 2px;
+        flex: 1;
+        background: var(--border);
+        min-height: 24px;
+      }
+      .spine-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--border);
+        flex-shrink: 0;
+        margin: 4px 0;
+      }
+
+      .timeline-entry {
+        width: 100%;
+        max-width: 360px;
+      }
+      .year-predictions .timeline-entry {
+        align-self: flex-end;
+      }
+      .year-events .timeline-entry {
+        align-self: flex-start;
+      }
+
+      .entry-dot {
+        display: none; /* dot is on the spine instead */
+      }
+      .timeline-entry .entry-card {
+        width: 100%;
+      }
+
+      /* Event entries get orange accent */
+      .year-events .badge-type {
+        background: #e67e22 !important;
+        color: #fff !important;
+      }
+      .year-events .entry-card {
+        border-left: 3px solid #e67e22;
+      }
+      /* Prediction entries stay blue */
+      .year-predictions .badge-type {
+        /* inherits default accent */
+      }
+      .year-predictions .entry-card {
+        border-left: 3px solid var(--accent);
+      }
+
+      @media (max-width: 768px) {
+        .year-group {
+          grid-template-columns: 1fr;
+        }
+        .year-predictions,
+        .year-events {
+          align-items: stretch;
+        }
+        .timeline-entry {
+          max-width: 100%;
+        }
+        .year-spine {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="hero hero-compact">
@@ -20,26 +170,26 @@
         </nav>
         <p class="eyebrow">Chronological view</p>
         <h1>Timeline</h1>
-        <p class="lede">Every prediction, in order.</p>
+        <p class="lede">Every entry, in order.</p>
       </div>
     </header>
 
     <main class="container" style="padding: 32px 0 64px;">
-      <div id="timeline" class="timeline"></div>
-    </main>
-
-    <template id="yearGroupTemplate">
-      <div class="year-group">
-        <div class="year-marker">
-          <span class="year-label"></span>
+      <div class="timeline-legend">
+        <div class="legend-item">
+          <div class="legend-dot predictions"></div>
+          <span>Predictions</span>
         </div>
-        <div class="year-entries"></div>
+        <div class="legend-item">
+          <div class="legend-dot events"></div>
+          <span>Observed Events</span>
+        </div>
       </div>
-    </template>
+      <div id="timeline" class="timeline-split"></div>
+    </main>
 
     <template id="entryTemplate">
       <article class="timeline-entry">
-        <div class="entry-dot"></div>
         <div class="entry-card card">
           <div class="card-header">
             <img class="speaker-avatar" src="" alt="" />
@@ -69,92 +219,158 @@
       const SPEAKER_AVATARS = {
         "Kristalina Georgieva": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Kristalina_Georgieva_Headshot.jpg",
         "Gita Gopinath": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Gita_Gopinath_2025_%28cropped%29.jpg",
-        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Gutters_%283x4_cropped_b%29.jpg",
         "Arvind Krishna": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
         "Bill Gates": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg",
         "Dario Amodei": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
         "Elon Musk": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg",
         "Saadia Zahidi": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Saadia_Zahidi_cropped.jpg",
         "Sam Altman": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Sam_Altman_TechCrunch_SF_2019_Day_2_Oct_3_%28cropped_3%29.jpg",
-        "Satya Nadella": "https://upload.wikimedia.org/wikipedia/4/4f/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
+        "Satya Nadella": "https://upload.wikimedia.org/wikipedia/commons/4/4f/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg",
         "Ursula von der Leyen": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Ursula_von_der_Leyen_2024.jpg",
         "Anthropic research team": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
         "Anthropic": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
         "Hadi Partovi": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/C_icon.svg/240px-C_icon.svg.png",
         "Jensen Huang": "https://upload.wikimedia.org/wikipedia/commons/0/05/JensenHuangSC18.jpg",
-        "Gilbert Fossoun Houngbo": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "Gilbert Fossoun Houngbo": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guters_%283x4_cropped_b%29.jpg",
         "Tyna Eloundou, Sam Manning, Pamela Mishkin, and Daniel Rock": "",
         "Joseph Briggs and Devesh Kodnani": "",
         "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
         "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+        "Challenger, Gray & Christmas": "",
+        "Oracle": "https://upload.wikimedia.org/wikipedia/commons/5/54/Oracle_logo.svg",
+        "GitLab": "https://upload.wikimedia.org/wikipedia/commons/a/a4/GitLab_logo.svg",
+        "Intuit": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Intuit_logo.svg",
+        "Meta Platforms": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Logo.svg",
+        "Amazon": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+        "Microsoft": "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg",
+        "Cloudflare": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_logo.svg",
+        "Cisco Systems": "https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo.svg",
+        "Atlassian": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Atlassian_logo.svg",
+        "Dell Technologies": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Dell_logo.svg",
+        "Block": "https://upload.wikimedia.org/wikipedia/commons/2/26/Block_logo.svg",
+        "Snap": "https://upload.wikimedia.org/wikipedia/commons/4/47/Snapchat_logo.svg",
+        "General Motors": "https://upload.wikimedia.org/wikipedia/commons/8/86/General_Motors_logo.svg",
+        "IBM": "https://upload.wikimedia.org/wikipedia/commons/2/21/IBM_logo.svg",
       };
 
-      const yearTemplate = document.getElementById("yearGroupTemplate");
       const entryTemplate = document.getElementById("entryTemplate");
       const container = document.getElementById("timeline");
 
-      // Group predictions by year
+      // Group predictions / events separately by year
       const byYear = {};
       predictions.forEach((p) => {
         const year = (p.date_made || "????-??-??").slice(0, 4);
-        if (!byYear[year]) byYear[year] = [];
-        byYear[year].push(p);
+        if (!byYear[year]) byYear[year] = { predictions: [], events: [] };
+        if (p.data_category === "observed_layoffs") {
+          byYear[year].events.push(p);
+        } else {
+          byYear[year].predictions.push(p);
+        }
       });
 
       const years = Object.keys(byYear).sort((a, b) => b.localeCompare(a));
 
       years.forEach((year) => {
-        const yearFragment = yearTemplate.content.cloneNode(true);
-        const yearGroup = yearFragment.querySelector(".year-group");
-        yearGroup.querySelector(".year-label").textContent = year;
+        const { predictions: preds, events } = byYear[year];
 
-        const entriesContainer = yearFragment.querySelector(".year-entries");
+        // Sort each group by date descending
+        preds.sort((a, b) => String(b.date_made).localeCompare(String(a.date_made)));
+        events.sort((a, b) => String(b.date_made).localeCompare(String(a.date_made)));
 
-        byYear[year]
-          .sort((a, b) => String(b.date_made).localeCompare(String(a.date_made)))
-          .forEach((item) => {
-            const entryFragment = entryTemplate.content.cloneNode(true);
+        const hasItems = preds.length || events.length;
+        if (!hasItems) return;
 
-            const avatarEl = entryFragment.querySelector(".speaker-avatar");
-            const avatarUrl = SPEAKER_AVATARS[item.speaker_name];
-            if (avatarUrl) {
-              avatarEl.src = avatarUrl;
-              avatarEl.alt = item.speaker_name;
-              avatarEl.onerror = function () {
-                this.style.display = "none";
-              };
-            } else {
-              avatarEl.src = "./default-avatar.jpg";
-              avatarEl.alt = item.speaker_name;
-            }
+        const yearGroup = document.createElement("div");
+        yearGroup.className = "year-group";
 
-            entryFragment.querySelector(".badge-type").textContent = humanize(item.prediction_type);
-            entryFragment.querySelector(".badge-speaker").textContent = humanize(item.speaker_type);
-            entryFragment.querySelector(".prediction-text").textContent = item.prediction_text;
-            entryFragment.querySelector(".speaker-line").textContent = `${item.speaker_name}${item.organization ? ` — ${item.organization}` : ""}`;
-            entryFragment.querySelector(".date-line").textContent = `${formatDate(item.date_made)}${item.geography_scope ? ` • ${humanize(item.geography_scope)}` : ""}${item.time_horizon_text ? ` • ${item.time_horizon_text}` : ""}`;
+        const marker = document.createElement("div");
+        marker.className = "year-marker";
+        const yearLabel = document.createElement("span");
+        yearLabel.className = "year-label";
+        yearLabel.textContent = year;
+        marker.appendChild(yearLabel);
+        yearGroup.appendChild(marker);
 
-            const tagList = entryFragment.querySelector(".tag-list");
-            (item.topic_tags || []).forEach((tag) => {
-              const tagEl = document.createElement("span");
-              tagEl.className = "tag";
-              tagEl.textContent = humanize(tag);
-              tagList.appendChild(tagEl);
-            });
+        // Left column: predictions
+        const predsCol = document.createElement("div");
+        predsCol.className = "year-predictions";
+        preds.forEach((item) => {
+          predsCol.appendChild(buildEntry(item, "prediction"));
+        });
 
-            const detailLink = entryFragment.querySelector(".detail-link");
-            detailLink.href = `./prediction.html?id=${encodeURIComponent(item.id)}`;
+        // Center spine
+        const spine = document.createElement("div");
+        spine.className = "year-spine";
+        const spineLine = document.createElement("div");
+        spineLine.className = "spine-line";
+        spine.appendChild(spineLine);
+        const spineDot = document.createElement("div");
+        spineDot.className = "spine-dot";
+        spine.appendChild(spineDot);
+        yearGroup.appendChild(predsCol);
+        yearGroup.appendChild(spine);
 
-            entriesContainer.appendChild(entryFragment);
-          });
+        // Right column: events
+        const eventsCol = document.createElement("div");
+        eventsCol.className = "year-events";
+        events.forEach((item) => {
+          eventsCol.appendChild(buildEntry(item, "event"));
+        });
+        yearGroup.appendChild(eventsCol);
 
-        container.appendChild(yearFragment);
+        container.appendChild(yearGroup);
       });
+
+      function buildEntry(item, kind) {
+        const frag = entryTemplate.content.cloneNode(true);
+
+        const avatarEl = frag.querySelector(".speaker-avatar");
+        const avatarUrl = SPEAKER_AVATARS[item.speaker_name];
+        if (avatarUrl) {
+          avatarEl.src = avatarUrl;
+          avatarEl.alt = item.speaker_name;
+          avatarEl.onerror = function () { this.style.display = "none"; };
+        } else {
+          avatarEl.src = "./default-avatar.jpg";
+          avatarEl.alt = item.speaker_name;
+        }
+
+        const badgeType = frag.querySelector(".badge-type");
+        if (kind === "event") {
+          badgeType.textContent = "EVENT";
+          badgeType.style.background = "#e67e22";
+          badgeType.style.color = "#fff";
+        } else {
+          badgeType.textContent = humanize(item.prediction_type);
+        }
+
+        frag.querySelector(".badge-speaker").textContent = humanize(item.speaker_type);
+        frag.querySelector(".prediction-text").textContent = item.prediction_text;
+        frag.querySelector(".speaker-line").textContent =
+          `${item.speaker_name}${item.organization ? ` — ${item.organization}` : ""}`;
+        frag.querySelector(".date-line").textContent =
+          `${formatDate(item.date_made)}${item.geography_scope ? ` • ${humanize(item.geography_scope)}` : ""}`;
+
+        const tagList = frag.querySelector(".tag-list");
+        (item.topic_tags || []).forEach((tag) => {
+          const tagEl = document.createElement("span");
+          tagEl.className = "tag";
+          tagEl.textContent = humanize(tag);
+          tagList.appendChild(tagEl);
+        });
+
+        const detailLink = frag.querySelector(".detail-link");
+        detailLink.href = `./prediction.html?id=${encodeURIComponent(item.id)}`;
+
+        return frag;
+      }
 
       function humanize(value) {
         return String(value)
           .replace(/[-_]/g, " ")
-          .replace(/\b\w/g, (char) => char.toUpperCase());
+          .replace(/\b\w/g, (char) => char.toUpperCase())
+          .replace(/\bAI\b/g, "AI");
       }
 
       function formatDate(value) {

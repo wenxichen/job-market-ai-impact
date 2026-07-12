@@ -366,6 +366,11 @@ select,
   color: #5a43b5;
 }
 
+.stat-orange {
+  background: #fef3e8;
+  color: #e67e22;
+}
+
 .prediction-card {
   padding: 20px;
   overflow: hidden;

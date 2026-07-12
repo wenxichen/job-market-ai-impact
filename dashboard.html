@@ -40,8 +40,18 @@
       </div>
 
       <div class="card" style="padding:24px; margin-bottom:28px;">
-        <h2 style="margin:0 0 16px; font-size:1.1rem;">Predictions Over Time</h2>
+        <h2 style="margin:0 0 16px; font-size:1.1rem;">Predictions vs Events Over Time</h2>
         <div id="timelineChart" class="timeline-bars"></div>
+        <div id="chartLegend" style="display:flex;gap:24px;margin-top:16px;font-size:0.8rem;font-weight:600;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:14px;height:14px;background:var(--accent);border-radius:3px;"></div>
+            <span>Predictions</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:14px;height:14px;background:#e67e22;border-radius:3px;"></div>
+            <span>Observed Events</span>
+          </div>
+        </div>
       </div>
 
       <h2 style="margin:0 0 20px; font-size:1.3rem;">Speakers</h2>
@@ -53,7 +63,7 @@
       const SPEAKER_AVATARS = {
         "Kristalina Georgieva": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Kristalina_Georgieva_Headshot.jpg",
         "Gita Gopinath": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Gita_Gopinath_2025_%28cropped%29.jpg",
-        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guterres_%283x4_cropped_b%29.jpg",
+        "António Guterres": "https://upload.wikimedia.org/wikipedia/commons/1/15/U.N._Secretary_General_Antonio_Guters_%283x4_cropped_b%29.jpg",
         "Arvind Krishna": "https://upload.wikimedia.org/wikipedia/commons/3/30/Arvind_Krishna_in_2025_%28cropped%29.jpg",
         "Bill Gates": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Bill_Gates_at_the_European_Commission_-_P067383-987995_%28cropped%29_5.jpg",
         "Dario Amodei": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Dario_Amodei_at_TechCrunch_Disrupt_2023_01_%28cropped%29.jpg",
@@ -67,6 +77,21 @@
         "Anthropic": "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg",
         "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
         "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+        "Oracle": "https://upload.wikimedia.org/wikipedia/commons/5/54/Oracle_logo.svg",
+        "GitLab": "https://upload.wikimedia.org/wikipedia/commons/a/a4/GitLab_logo.svg",
+        "Intuit": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Intuit_logo.svg",
+        "Meta Platforms": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Logo.svg",
+        "Amazon": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+        "Microsoft": "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg",
+        "Cloudflare": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_logo.svg",
+        "Cisco Systems": "https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo.svg",
+        "Atlassian": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Atlassian_logo.svg",
+        "Dell Technologies": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Dell_logo.svg",
+        "Block": "https://upload.wikimedia.org/wikipedia/commons/2/26/Block_logo.svg",
+        "Snap": "https://upload.wikimedia.org/wikipedia/commons/4/47/Snapchat_logo.svg",
+        "General Motors": "https://upload.wikimedia.org/wikipedia/commons/8/86/General_Motors_logo.svg",
+        "IBM": "https://upload.wikimedia.org/wikipedia/commons/2/21/IBM_logo.svg",
+        "Challenger, Gray & Christmas": "",
       };
 
       const res = await fetch("predictions.json");
@@ -74,8 +99,11 @@
 
       const tagCount = {};
       const typeCount = {};
-      const dateMap = {};
+      const predsByYear = {};
+      const eventsByYear = {};
       const speakers = {};
+      let predictionCount = 0;
+      let eventCount = 0;
 
       predictions.forEach((prediction) => {
         (prediction.topic_tags || []).forEach((tag) => {
@@ -87,7 +115,13 @@
 
         const year = (prediction.date_made || "????").slice(0, 4);
         if (year !== "????") {
-          dateMap[year] = (dateMap[year] || 0) + 1;
+          if (prediction.data_category === "observed_layoffs") {
+            eventsByYear[year] = (eventsByYear[year] || 0) + 1;
+            eventCount++;
+          } else {
+            predsByYear[year] = (predsByYear[year] || 0) + 1;
+            predictionCount++;
+          }
         }
 
         const key = (prediction.speaker_name || "").toLowerCase().replace(/\s+/g, "-");
@@ -102,18 +136,20 @@
       });
 
       const topTags = Object.entries(tagCount).sort((a, b) => b[1] - a[1]).slice(0, 10);
-      const total = predictions.length;
-      const years = Object.keys(dateMap).sort();
+      const allYears = [...new Set([...Object.keys(predsByYear), ...Object.keys(eventsByYear)])].sort();
+      const topicsCount = Object.keys(tagCount).length;
 
       renderStats([
-        [`${total} predictions`, "stat-blue"],
+        [`${predictionCount} predictions`, "stat-blue"],
+        [`${eventCount} observed events`, "stat-orange"],
         [`${Object.keys(speakers).length} speakers`, "stat-green"],
-        [`${Object.keys(tagCount).length} topics`, "stat-gold"],
-        [`${years.length} years`, "stat-violet"],
+        [`${topicsCount} topics`, "stat-gold"],
+        [`${allYears.length} years of data`, "stat-violet"],
       ]);
+
       renderBars(document.getElementById("tagChart"), topTags);
       renderDonut(typeCount);
-      renderTimeline(years.map((year) => [year, dateMap[year]]));
+      renderSplitTimeline(allYears, predsByYear, eventsByYear);
       renderSpeakers(Object.values(speakers));
 
       function renderStats(items) {
@@ -184,24 +220,71 @@
         });
       }
 
-      function renderTimeline(items) {
+      // Stacked bar: prediction bar (blue) on top, event bar (orange) below
+      function renderSplitTimeline(years, predsByYear, eventsByYear) {
         const container = document.getElementById("timelineChart");
-        const max = Math.max(...items.map(([, count]) => count), 1);
+        const maxCount = Math.max(
+          ...years.map((y) => (predsByYear[y] || 0) + (eventsByYear[y] || 0)),
+          1
+        );
+        const maxBarHeight = 150;
 
-        items.forEach(([year, count]) => {
+        years.forEach((year) => {
+          const preds = predsByYear[year] || 0;
+          const events = eventsByYear[year] || 0;
+
           const item = document.createElement("div");
           item.className = "timeline-bar-item";
+          item.style.display = "flex";
+          item.style.flexDirection = "column";
+          item.style.alignItems = "center";
+          item.style.gap = "4px";
 
-          const bar = document.createElement("span");
-          bar.className = "timeline-bar";
-          bar.style.height = `${Math.max((count / max) * 150, 16)}px`;
-          bar.title = `${year}: ${count}`;
+          const barGroup = document.createElement("div");
+          barGroup.style.display = "flex";
+          barGroup.style.flexDirection = "column-reverse";
+          barGroup.style.alignItems = "center";
+          barGroup.style.gap = "3px";
+          barGroup.style.height = `${maxBarHeight}px`;
+          barGroup.style.justifyContent = "flex-end";
+
+          if (preds > 0) {
+            const predBar = document.createElement("div");
+            predBar.style.width = "32px";
+            predBar.style.height = `${Math.max((preds / maxCount) * maxBarHeight, 6)}px`;
+            predBar.style.background = "var(--accent)";
+            predBar.style.borderRadius = "3px 3px 0 0";
+            predBar.title = `${year}: ${preds} prediction${preds !== 1 ? "s" : ""}`;
+            barGroup.appendChild(predBar);
+          }
+
+          if (events > 0) {
+            const eventBar = document.createElement("div");
+            eventBar.style.width = "32px";
+            eventBar.style.height = `${Math.max((events / maxCount) * maxBarHeight, 6)}px`;
+            eventBar.style.background = "#e67e22";
+            eventBar.style.borderRadius = "3px 3px 0 0";
+            eventBar.title = `${year}: ${events} event${events !== 1 ? "s" : ""}`;
+            barGroup.appendChild(eventBar);
+          }
+
+          if (preds === 0 && events === 0) {
+            const emptyBar = document.createElement("div");
+            emptyBar.style.width = "32px";
+            emptyBar.style.height = "6px";
+            emptyBar.style.background = "var(--border)";
+            emptyBar.style.borderRadius = "3px";
+            barGroup.appendChild(emptyBar);
+          }
 
           const label = document.createElement("span");
           label.className = "timeline-bar-label";
           label.textContent = year;
+          label.style.marginTop = "6px";
+          label.style.fontSize = "0.75rem";
+          label.style.color = "var(--muted)";
 
-          item.append(bar, label);
+          item.append(barGroup, label);
           container.appendChild(item);
         });
       }
@@ -259,12 +342,8 @@
         const image = new Image(56, 56);
         image.className = "speaker-photo";
         image.alt = name || "Speaker";
-        image.onload = () => {
-          avatar.replaceWith(image);
-        };
-        image.onerror = () => {
-          image.remove();
-        };
+        image.onload = () => { avatar.replaceWith(image); };
+        image.onerror = () => { image.remove(); };
         image.src = avatarUrl;
         return avatar;
       }
