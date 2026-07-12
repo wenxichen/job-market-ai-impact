@@ -868,7 +868,7 @@
     "country": "US",
     "date_made": "2026-06",
     "prediction_text": "AI became the single most-cited reason for U.S. job cuts for four consecutive months (March\u2013June 2026). Through June 2026, AI was cited in 101,743 U.S. job cuts \u2014 nearly double the 54,836 attributed to AI in all of 2025. Technology sector accounted for 139,156 announced cuts through June 2026, up 83% year-over-year. AI was named in 87,714 layoffs in the first five months of 2026 alone, accounting for 40% of all May 2026 cuts.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -884,7 +884,8 @@
     "source_type": "tracking report",
     "source_quote": "AI has led all reasons for layoffs for four straight months, from March through June 2026. Through June 2026, AI has been cited in 101,743 U.S. job cuts, nearly double the 54,836 attributed to it in all of 2025.",
     "retrieved_at": "2026-07-11",
-    "notes": "Most systematic aggregation of AI-cited layoff data available. Key meta-data point. Full June Challenger report should be retrieved for exact monthly breakdown."
+    "notes": "Most systematic aggregation of AI-cited layoff data available. Key meta-data point. Full June Challenger report should be retrieved for exact monthly breakdown. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "oracle-2026-06-22-regulatory-filing",
@@ -894,7 +895,7 @@
     "country": "US",
     "date_made": "2026-06-22",
     "prediction_text": "Oracle reduced its workforce by 21,000 employees over fiscal year 2026 \u2014 a 13% reduction \u2014 explicitly citing AI adoption and deployment as the cause in an annual regulatory filing, stating that AI technologies 'have resulted, and may continue to result, in reductions to our workforce.'",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -909,7 +910,8 @@
     "source_type": "primary",
     "source_quote": "The adoption and deployment of AI technologies across our operations have resulted, and may continue to result, in reductions to our workforce.",
     "retrieved_at": "2026-07-11",
-    "notes": "One of the clearest documented cases of AI-driven workforce reduction by a major company. Forward-looking qualifier included in the filing."
+    "notes": "One of the clearest documented cases of AI-driven workforce reduction by a major company. Forward-looking qualifier included in the filing. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "gitlab-2026-06-03-layoffs",
@@ -919,7 +921,7 @@
     "country": "US",
     "date_made": "2026-06-03",
     "prediction_text": "GitLab laid off roughly 350 workers, about 14% of its staff, to fund AI infrastructure investment and handle surging traffic from AI workflows.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -935,7 +937,8 @@
     "source_type": "secondary",
     "source_quote": "GitLab laid off roughly 350 workers, about 14% of its staff, to fund AI infrastructure investment and handle surging traffic from AI workflows.",
     "retrieved_at": "2026-07-11",
-    "notes": "GitLab explicitly framed the cuts as reallocation toward AI infrastructure, not cost-cutting."
+    "notes": "GitLab explicitly framed the cuts as reallocation toward AI infrastructure, not cost-cutting. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "intuit-2026-06-restructure",
@@ -945,7 +948,7 @@
     "country": "US",
     "date_made": "2026-06",
     "prediction_text": "Intuit announced plans to eliminate roughly 3,000 jobs, about 17% of its total workforce, in a restructuring centered on reducing complexity and reallocating resources toward AI.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -960,7 +963,8 @@
     "source_type": "secondary",
     "source_quote": "Intuit announced plans to eliminate roughly 3,000 jobs \u2014 about 17% of its total workforce \u2014 in a restructuring centered on reducing complexity and reallocating resources toward AI.",
     "retrieved_at": "2026-07-11",
-    "notes": "Large percentage of workforce affected; strong AI restructuring framing."
+    "notes": "Large percentage of workforce affected; strong AI restructuring framing. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "meta-2026-05-20-layoffs",
@@ -970,7 +974,7 @@
     "country": "US",
     "date_made": "2026-05-20",
     "prediction_text": "Meta laid off about 8,000 employees, roughly 10% of its workforce, while moving about 7,000 employees into new AI-focused roles \u2014 suggesting partial workforce transformation rather than pure displacement.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -986,7 +990,8 @@
     "source_type": "secondary",
     "source_quote": "Meta laid off about 8,000 employees, roughly 10% of its workforce, while moving about 7,000 employees into new AI-focused roles.",
     "retrieved_at": "2026-07-11",
-    "notes": "Notable for the scale of re-skilling component; suggests AI transformation with both displacement and augmentation elements."
+    "notes": "Notable for the scale of re-skilling component; suggests AI transformation with both displacement and augmentation elements. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "amazon-2026-01-corporate-layoffs",
@@ -996,7 +1001,7 @@
     "country": "US",
     "date_made": "2026-01",
     "prediction_text": "Amazon cut 16,000 corporate jobs following 14,000 cuts in October 2025, continuing a restructuring focused on AI-driven efficiency and management layer flattening, affecting roughly 9% of Amazon's corporate workforce within a three-month window.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -1012,7 +1017,8 @@
     "source_type": "secondary",
     "source_quote": "Following a round of 14,000 corporate job eliminations in late 2025, Amazon continued its workforce reductions with another 16,000 corporate jobs cut at the start of 2026.",
     "retrieved_at": "2026-07-11",
-    "notes": "Very large absolute numbers; AWS and corporate support functions most affected. Pattern of consecutive large rounds."
+    "notes": "Very large absolute numbers; AWS and corporate support functions most affected. Pattern of consecutive large rounds. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "microsoft-2026-05-layoffs",
@@ -1022,7 +1028,7 @@
     "country": "US",
     "date_made": "2026-05",
     "prediction_text": "Microsoft eliminated about 4,800 roles, roughly 2.1% of its global workforce, citing a restructuring to accelerate investment in AI engineering and reduce middle management and customer-success layers \u2014 a year after announcing 9,100 layoffs in May 2025.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1037,7 +1043,8 @@
     "source_type": "secondary",
     "source_quote": "Microsoft said Monday that it has eliminated about 4,800 roles, or 2.1% of its global workforce, adding to the string of AI-related layoffs hitting the tech world.",
     "retrieved_at": "2026-07-11",
-    "notes": "Microsoft's stated framing of 'accelerating investment in AI engineering' while cutting customer-success and middle management is a clear AI-efficiency narrative."
+    "notes": "Microsoft's stated framing of 'accelerating investment in AI engineering' while cutting customer-success and middle management is a clear AI-efficiency narrative. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "cloudflare-2026-layoffs",
@@ -1047,7 +1054,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "Cloudflare slashed approximately 20% of its workforce, about 1,100 people, explicitly citing increased AI usage as a driver of the cuts.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1062,7 +1069,8 @@
     "source_type": "secondary",
     "source_quote": "Cloudflare slashed 20% of its workforce, about 1,100 people, citing increased AI usage.",
     "retrieved_at": "2026-07-11",
-    "notes": "20% cut is one of the highest percentage impacts among named companies; explicitly AI-cited."
+    "notes": "20% cut is one of the highest percentage impacts among named companies; explicitly AI-cited. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "cisco-2026-05-layoffs",
@@ -1072,7 +1080,7 @@
     "country": "US",
     "date_made": "2026-05",
     "prediction_text": "Cisco announced plans to cut about 4,000 jobs, under 5% of its global workforce, realigning resources around silicon, optics, security, and AI as part of a broader restructuring.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1087,7 +1095,8 @@
     "source_type": "secondary",
     "source_quote": "Cisco plans to cut about 4,000 jobs to refocus on AI, affecting less than 5% of its workforce.",
     "retrieved_at": "2026-07-11",
-    "notes": "Cisco frames this as proactive refocusing around AI, silicon, and security rather than pure cost-cutting."
+    "notes": "Cisco frames this as proactive refocusing around AI, silicon, and security rather than pure cost-cutting. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "atlassian-2026-layoffs",
@@ -1097,7 +1106,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "Atlassian cut 1,600 jobs, 10% of its global workforce, to rebalance toward AI and enterprise sales following a period of over-hiring relative to AI-driven productivity gains.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -1113,7 +1122,8 @@
     "source_type": "secondary",
     "source_quote": "Atlassian announced a 10% reduction in its global workforce due to changes needed for the 'AI era'.",
     "retrieved_at": "2026-07-11",
-    "notes": "Atlassian was explicit about 'AI era' framing; smaller absolute number but strong thematic alignment."
+    "notes": "Atlassian was explicit about 'AI era' framing; smaller absolute number but strong thematic alignment. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "dell-2026-layoffs",
@@ -1123,7 +1133,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "Dell cut approximately 11,000 jobs, about 10% of its workforce, incurring $569 million in severance costs, as part of a restructuring driven by AI-related shifts in demand.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1138,7 +1148,8 @@
     "source_type": "secondary",
     "source_quote": "Dell's 11,000-job reduction \u2014 about 10% \u2014 came with $569 million in severance costs.",
     "retrieved_at": "2026-07-11",
-    "notes": "Large absolute numbers; high severance cost signals a planned, systematic restructuring rather than reactive cuts."
+    "notes": "Large absolute numbers; high severance cost signals a planned, systematic restructuring rather than reactive cuts. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "block-2026-layoffs",
@@ -1148,7 +1159,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "Block cut 4,000 jobs, nearly half its workforce, explicitly citing AI tools and new ways of working as the primary driver of its restructuring.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -1164,7 +1175,8 @@
     "source_type": "secondary",
     "source_quote": "Block cut 4,000 jobs, nearly half its workforce, citing AI tools and new ways of working.",
     "retrieved_at": "2026-07-11",
-    "notes": "One of the most dramatic percentage reductions; explicitly cites AI tools as the primary reason."
+    "notes": "One of the most dramatic percentage reductions; explicitly cites AI tools as the primary reason. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "snap-2026-layoffs",
@@ -1174,7 +1186,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "Snap cut 1,000 jobs, 16% of its workforce, citing rapid advancements in artificial intelligence as the primary driver of its restructuring.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1189,7 +1201,8 @@
     "source_type": "secondary",
     "source_quote": "Snap is cutting 1,000 jobs after an activist investor said it 'Over-Hired' \u2014 citing rapid advancements in AI.",
     "retrieved_at": "2026-07-11",
-    "notes": "Snap's company statement explicitly cited AI advancements; activist investor context adds secondary framing."
+    "notes": "Snap's company statement explicitly cited AI advancements; activist investor context adds secondary framing. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "gm-2026-it-layoffs",
@@ -1199,7 +1212,7 @@
     "country": "US",
     "date_made": "2026",
     "prediction_text": "General Motors eliminated 500\u2013600 IT jobs, with AI cited as a contributing factor in the restructuring.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption"
@@ -1214,7 +1227,8 @@
     "source_type": "secondary",
     "source_quote": "General Motors eliminated 500 to 600 IT jobs, with AI cited as a factor.",
     "retrieved_at": "2026-07-11",
-    "notes": "GM is notable for being a non-tech company with explicit AI-cited cuts; suggests cross-sector AI-driven restructuring beyond pure tech."
+    "notes": "GM is notable for being a non-tech company with explicit AI-cited cuts; suggests cross-sector AI-driven restructuring beyond pure tech. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "ibm-2025-2026-workforce-reallocation",
@@ -1224,7 +1238,7 @@
     "country": "US",
     "date_made": "2025-10",
     "prediction_text": "IBM cut between 3,000 and 9,000 U.S. jobs between late 2025 and spring 2026, while planning to triple its AI and hybrid-cloud hiring \u2014 a clear reallocation pattern from traditional IT roles to AI-specific roles.",
-    "prediction_type": "quantitative",
+    "prediction_type": "observed",
     "topic_tags": [
       "job-displacement",
       "ai-adoption",
@@ -1240,7 +1254,8 @@
     "source_type": "secondary",
     "source_quote": "IBM's cuts range from 3,000 to 9,000 U.S. jobs between late 2025 and spring 2026. The company plans to triple AI and hybrid-cloud hiring.",
     "retrieved_at": "2026-07-11",
-    "notes": "IBM is the clearest example of a major company explicitly framing this as workforce reallocation rather than pure cost reduction. Worth noting in dataset commentary."
+    "notes": "IBM is the clearest example of a major company explicitly framing this as workforce reallocation rather than pure cost reduction. Worth noting in dataset commentary. [NOTE: This is documented historical event data, not a prediction about future AI impact.]",
+    "data_category": "observed_layoffs"
   },
   {
     "id": "tyna-eloundou-sam-manning-pamela-mishkin-daniel-rock-2023-03-17-openai-001",

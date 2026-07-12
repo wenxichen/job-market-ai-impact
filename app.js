@@ -19,6 +19,21 @@ const SPEAKER_AVATARS = {
   "Joseph Briggs and Devesh Kodnani": "",
   "International Labour Organization": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/UN_Labour_Organization_logo.png/240px-UN_Labour_Organization_logo.png",
   "World Economic Forum": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/World_Economic_Forum_logo.svg/240px-World_Economic_Forum_logo.svg.png",
+  "Challenger, Gray & Christmas": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Challegner_logo.svg/240px-Challegner_logo.svg.png",
+  "Oracle": "https://upload.wikimedia.org/wikipedia/commons/5/54/Oracle_logo.svg",
+  "GitLab": "https://upload.wikimedia.org/wikipedia/commons/a/a4/GitLab_logo.svg",
+  "Intuit": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Intuit_logo.svg",
+  "Meta Platforms": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Logo.svg",
+  "Amazon": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+  "Microsoft": "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg",
+  "Cloudflare": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_logo.svg",
+  "Cisco Systems": "https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo.svg",
+  "Atlassian": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Atlassian_logo.svg",
+  "Dell Technologies": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Dell_logo.svg",
+  "Block": "https://upload.wikimedia.org/wikipedia/commons/2/26/Block_logo.svg",
+  "Snap": "https://upload.wikimedia.org/wikipedia/commons/4/47/Snapchat_logo.svg",
+  "General Motors": "https://upload.wikimedia.org/wikipedia/commons/8/86/General_Motors_logo.svg",
+  "IBM": "https://upload.wikimedia.org/wikipedia/commons/2/21/IBM_logo.svg",
 };
 
 const state = {
@@ -31,6 +46,7 @@ const state = {
     predictionType: "",
     year: "",
     sort: "newest",
+    dataCategory: "",
   },
 };
 
@@ -47,6 +63,7 @@ const elements = {
   predictionTypeFilter: document.getElementById("predictionTypeFilter"),
   yearFilter: document.getElementById("yearFilter"),
   sortFilter: document.getElementById("sortFilter"),
+  dataCategoryFilter: document.getElementById("dataCategoryFilter"),
   resetFilters: document.getElementById("resetFilters"),
   filtersToggle: document.getElementById("filtersToggle"),
   filtersPanel: document.getElementById("filtersPanel"),
@@ -76,6 +93,7 @@ function bindEvents() {
     [elements.predictionTypeFilter, "predictionType"],
     [elements.yearFilter, "year"],
     [elements.sortFilter, "sort"],
+    [elements.dataCategoryFilter, "dataCategory"],
   ].forEach(([element, key]) => {
     element.addEventListener("change", (event) => {
       state.filters[key] = event.target.value;
@@ -92,8 +110,8 @@ function bindEvents() {
       predictionType: "",
       year: "",
       sort: "newest",
+      dataCategory: "",
     };
-
 
     elements.searchInput.value = "";
     elements.speakerTypeFilter.value = "";
@@ -102,6 +120,7 @@ function bindEvents() {
     elements.predictionTypeFilter.value = "";
     elements.yearFilter.value = "";
     elements.sortFilter.value = "newest";
+    elements.dataCategoryFilter.value = "";
     render();
   });
 
@@ -131,6 +150,10 @@ function populateFilterOptions() {
         .filter(Boolean)
     ).sort((a, b) => Number(b) - Number(a))
   );
+  fillSelect(
+    elements.dataCategoryFilter,
+    uniqueValues(state.predictions.map((item) => item.data_category).filter(Boolean))
+  );
 }
 
 function fillSelect(element, values) {
@@ -158,6 +181,10 @@ function renderStats() {
   const speakers = new Set(state.predictions.map((item) => item.speaker_name)).size;
   const topics = new Set(state.predictions.flatMap((item) => item.topic_tags || [])).size;
 
+  // Count observed events vs predictions
+  const eventCount = state.predictions.filter((item) => item.data_category === "observed_layoffs").length;
+  const predictionCount = totalPredictions - eventCount;
+
   // Find most recent retrieved_at date across all entries
   const retrievedDates = state.predictions
     .map((item) => item.retrieved_at)
@@ -172,7 +199,8 @@ function renderStats() {
 
   elements.stats.innerHTML = "";
   [
-    `${totalPredictions} predictions`,
+    `${predictionCount} predictions`,
+    eventCount > 0 ? `${eventCount} observed events` : null,
     `${speakers} speakers`,
     `${topics} topics`,
     mostRecent ? `Updated ${mostRecent}` : null,
@@ -199,12 +227,12 @@ function renderActiveFilters() {
 
 function renderResults(items) {
   elements.predictionsList.innerHTML = "";
-  elements.resultsCount.textContent = `${items.length} of ${state.predictions.length} predictions shown`;
+  elements.resultsCount.textContent = `${items.length} of ${state.predictions.length} entries shown`;
 
   if (!items.length) {
     const emptyState = document.createElement("div");
     emptyState.className = "empty-state";
-    emptyState.textContent = "No predictions match the current filters.";
+    emptyState.textContent = "No entries match the current filters.";
     elements.predictionsList.appendChild(emptyState);
     return;
   }
@@ -221,12 +249,20 @@ function renderResults(items) {
         this.style.display = "none";
       };
     } else {
-      // Use the same default avatar for all speakers
       avatarEl.src = "./default-avatar.jpg";
       avatarEl.alt = item.speaker_name;
     }
 
-    fragment.querySelector(".badge-type").textContent = humanize(item.prediction_type);
+    // Show EVENT badge for observed data, regular badge otherwise
+    const badgeType = fragment.querySelector(".badge-type");
+    if (item.data_category === "observed_layoffs") {
+      badgeType.textContent = "EVENT";
+      badgeType.style.background = "var(--accent)";
+      badgeType.style.color = "#fff";
+    } else {
+      badgeType.textContent = humanize(item.prediction_type);
+    }
+
     fragment.querySelector(".badge-speaker").textContent = humanize(item.speaker_type);
     fragment.querySelector(".prediction-text").textContent = item.prediction_text;
     fragment.querySelector(".speaker-line").textContent = `${item.speaker_name}${item.organization ? ` — ${item.organization}` : ""}`;
@@ -248,7 +284,6 @@ function renderResults(items) {
       tagList.appendChild(tagElement);
     });
 
-
     elements.predictionsList.appendChild(fragment);
   });
 }
@@ -257,9 +292,10 @@ function getFilteredPredictions() {
   const filtered = [...state.predictions]
     .filter((item) => matchesSearch(item, state.filters.search))
     .filter((item) => !state.filters.speakerType || item.speaker_type === state.filters.speakerType)
-    .filter((item) => !state.filters.topic || (item.topic_tags || []).includes(state.filters.topic))
+    .filter((item) => !state.filters.topic || (item.topic_tags || []).includes(item.topic))
     .filter((item) => !state.filters.geography || item.geography_scope === state.filters.geography)
     .filter((item) => !state.filters.predictionType || item.prediction_type === state.filters.predictionType)
+    .filter((item) => !state.filters.dataCategory || item.data_category === state.filters.dataCategory)
     .filter((item) => !state.filters.year || String(item.date_made || "").startsWith(state.filters.year));
 
   return filtered.sort((a, b) => {
@@ -305,6 +341,9 @@ const DISPLAY_NAME = {
   "future-work-policy":        "Future of Work & Policy",
   "global labor market":       "Global Labor Market",
   "agi-superintelligence":      "AGI & Superintelligence",
+  "observed":                 "Observed Event",
+  "observed_layoffs":         "Observed Event",
+  "prediction":               "Prediction",
 };
 
 function humanize(value) {
@@ -335,5 +374,6 @@ function labelForFilter(key) {
     predictionType: "Prediction type",
     year: "Year",
     sort: "Sort",
+    dataCategory: "Data category",
   }[key] || key;
 }
