@@ -831,3 +831,24 @@ summary {
     font-size: 0.85rem;
   }
 }
+
+/* Last updated tag */
+.page-footer {
+  text-align: center;
+  padding: 28px 16px 44px;
+}
+
+.last-updated {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.last-updated[hidden] {
+  display: none;
+}

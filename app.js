@@ -182,14 +182,14 @@ function renderStats() {
   const topics = new Set(state.predictions.flatMap((item) => item.topic_tags || [])).size;
 
   // Count observed events vs predictions
-  const eventCount = state.predictions.filter((item) => item.data_category === "observed_layoffs").length;
+  const eventCount = state.predictions.filter((item) => (item.data_category || "").startsWith("observed")).length;
   const predictionCount = totalPredictions - eventCount;
 
   // Find most recent retrieved_at date across all entries
   const retrievedDates = state.predictions
     .map((item) => item.retrieved_at)
     .filter(Boolean)
-    .map((d) => new Date(d))
+    .map((d) => new Date(/^\d{4}-\d{2}-\d{2}$/.test(d) ? d + "T00:00:00" : d))
     .filter((d) => !Number.isNaN(d.getTime()));
   const mostRecent = retrievedDates.length
     ? new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "numeric" }).format(
